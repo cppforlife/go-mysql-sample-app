@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/codegangsta/martini"
@@ -123,7 +124,7 @@ func initDb() *gorp.DbMap {
 	// use whatever database/sql driver you wish
 
 	//db, err := sql.Open("sqlite3", "/tmp/post_db.bin")
-	db, err := sql.Open("mysql", "USERNAME:PASSWORD@unix(/var/run/mysqld/mysqld.sock)/sample")
+	db, err := sql.Open("mysql", os.Getenv("DATABASE_URI"))
 	checkErr(err, "sql.Open failed")
 
 	// construct a gorp DbMap
